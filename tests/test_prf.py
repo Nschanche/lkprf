@@ -3,7 +3,7 @@
 import lkprf
 import numpy as np
 import matplotlib.pyplot as plt
-
+import lksearch
 import os
 
 
@@ -18,9 +18,9 @@ def test_prfs():
         origin = (0, 0)
         shape = (21, 21)
         ar = prf.evaluate(targets=targets, origin=origin, shape=shape)
-        R, C = np.mgrid[: ar.shape[1], : ar.shape[2]] + 0.5
-        assert np.isclose(np.average(R.ravel(), weights=ar[0].ravel()), 10.5, atol=0.05)
-        assert np.isclose(np.average(C.ravel(), weights=ar[0].ravel()), 10.5, atol=0.05)
+        R, C = np.mgrid[: ar.shape[1], : ar.shape[2]] + 1.0
+        assert np.isclose(np.average(R.ravel(), weights=ar[0].ravel()), 10, atol=0.05)
+        assert np.isclose(np.average(C.ravel(), weights=ar[0].ravel()), 10, atol=0.05)
         assert np.isclose(ar[0].sum(), 1)
         assert ar.shape == (1, *shape)
         if not is_github_actions():
@@ -57,3 +57,4 @@ def test_prfs():
         for a in ar:
             assert (a[0] < 0).any()
             assert (a[0] > 0).any()
+
